@@ -1,12 +1,22 @@
 namespace Wholemy {
 	public class Mat {
 		#region #method# Sqrt(X, Y) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
 		public static decimal Sqrt(decimal X, decimal Y) {
 			X = Y = X * X + Y * Y;
 			var R = X * 0.5m;
 			while(Y != R) { Y = R; R = (R + (X / R)) * 0.5m; }
 			return R;
 		}
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
 		public static double Sqrt(double X, double Y) {
 			#region #debug# 
 #if DEBUG
@@ -18,6 +28,11 @@ namespace Wholemy {
 			while(Y != R) { Y = R; R = (R + (X / R)) * 0.5; }
 			return R;
 		}
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
 		public static float Sqrt(float X, float Y) {
 			#region #debug# 
 #if DEBUG
@@ -31,7 +46,7 @@ namespace Wholemy {
 		}
 		#endregion
 		#region #method# GetAR(CX, CY, BX, BY, AX, AY) 
-				/// <summary>Возвращает корень поворота от 0.0 до 4.0)</summary>
+		/// <summary>Возвращает корень поворота от 0.0 до 4.0)</summary>
 		/// <param name="CX">Центр по оси X)</param>
 		/// <param name="CY">Центр по оси Y)</param>
 		/// <param name="BX">Старт по оси X)</param>
@@ -77,10 +92,10 @@ namespace Wholemy {
 				BY = CY + (BY - CY) / L2 * BL;
 				L3 = Sqrt(AX - BX, AY - BY);
 				if(L0 < L1) {
-					if(EX == BX && EY == BY) break; if(L1 < L3) break;
+					if(EX == BX && EY == BY) break; if(L1 <= L3) break;
 					EX = BX; EY = BY; L1 = L3;
 				} else {
-					if(MX == BX && MY == BY) break; if(L0 < L3) break;
+					if(MX == BX && MY == BY) break; if(L0 <= L3) break;
 					MX = BX; MY = BY; L0 = L3; R += AR;
 				}
 			}
@@ -132,10 +147,10 @@ namespace Wholemy {
 				BY = CY + (BY - CY) / L2 * BL;
 				L3 = Sqrt(AX - BX, AY - BY);
 				if(L0 < L1) {
-					if(EX == BX && EY == BY) break; if(L1 < L3) break;
+					if(EX == BX && EY == BY) break; if(L1 <= L3) break;
 					EX = BX; EY = BY; L1 = L3;
 				} else {
-					if(MX == BX && MY == BY) break; if(L0 < L3) break;
+					if(MX == BX && MY == BY) break; if(L0 <= L3) break;
 					MX = BX; MY = BY; L0 = L3; R += AR;
 				}
 			}
@@ -187,10 +202,10 @@ namespace Wholemy {
 				BY = CY + (BY - CY) / L2 * BL;
 				L3 = Sqrt(AX - BX, AY - BY);
 				if(L0 < L1) {
-					if(EX == BX && EY == BY) break; if(L1 < L3) break;
+					if(EX == BX && EY == BY) break; if(L1 <= L3) break;
 					EX = BX; EY = BY; L1 = L3;
 				} else {
-					if(MX == BX && MY == BY) break; if(L0 < L3) break;
+					if(MX == BX && MY == BY) break; if(L0 <= L3) break;
 					MX = BX; MY = BY; L0 = L3; R += AR;
 				}
 			}
@@ -217,7 +232,7 @@ namespace Wholemy {
 			else if(R == 3) { MX = BY - CY + CX; MY = CX - BX + CY; } // 270
 			var EX = BX; var EY = BY; BX = MX; BY = MY;
 			if(AR > 0.0f && R >= 0 && R < 3) { EX = CY - MY + CX; EY = MX - CX + CY; } // 90
-			while(AR != 0.0f) {
+			while(AR > 0.0f && AR < 1.0f) {
 				var L = Sqrt(MX - EX, MY - EY);
 				if(L == 0.0f) break;
 				var ll = L / 2f;
@@ -254,7 +269,7 @@ namespace Wholemy {
 			else if(R == 3) { MX = BY - CY + CX; MY = CX - BX + CY; } // 270
 			var EX = BX; var EY = BY; BX = MX; BY = MY;
 			if(AR > 0.0 && R >= 0 && R < 3) { EX = CY - MY + CX; EY = MX - CX + CY; } // 90
-			while(AR != 0.0) {
+			while(AR > 0.0 && AR < 1.0) {
 				var L = Sqrt(MX - EX, MY - EY);
 				if(L == 0.0) break;
 				var ll = L / 2;
@@ -291,7 +306,7 @@ namespace Wholemy {
 			else if(R == 3) { MX = BY - CY + CX; MY = CX - BX + CY; } // 270
 			var EX = BX; var EY = BY; BX = MX; BY = MY;
 			if(AR > 0.0m && R >= 0 && R < 3) { EX = CY - MY + CX; EY = MX - CX + CY; } // 90
-			while(AR != 0.0m) {
+			while(AR > 0.0m && AR < 1.0m) {
 				var L = Sqrt(MX - EX, MY - EY);
 				if(L == 0.0m) break;
 				var ll = L / 2;
